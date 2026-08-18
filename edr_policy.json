@@ -1,0 +1,32 @@
+{
+  "active_containment": true,
+  "behavioral_rules": [
+    {
+      "id": "EDR-RANSOM-01",
+      "name": "Volume Shadow Copy Deletion (Ransomware Inhibit System Recovery)",
+      "target_comm": "vssadmin.exe",
+      "command_regex": "(?i)delete\\s+shadows(\\s+/all|/quiet)?",
+      "mitre_id": "T1490",
+      "severity": "CRITICAL",
+      "action": "TERMINATE_PROCESS_TREE"
+    },
+    {
+      "id": "EDR-CRED-02",
+      "name": "LSASS Memory Access / Credential Dumping Signature",
+      "target_comm": "procdump.exe",
+      "command_regex": "(?i)lsass(\\.exe)?",
+      "mitre_id": "T1003.001",
+      "severity": "CRITICAL",
+      "action": "TERMINATE_PROCESS_TREE"
+    },
+    {
+      "id": "EDR-PERSIST-03",
+      "name": "Suspicious Scheduled Task Persistence Spawn",
+      "target_comm": "schtasks.exe",
+      "command_regex": "(?i)/create\\s+/tn.*(powershell|cmd|certutil)",
+      "mitre_id": "T1053.005",
+      "severity": "HIGH",
+      "action": "SUSPEND_PROCESS"
+    }
+  ]
+}
